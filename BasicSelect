@@ -1,0 +1,62 @@
+PracticeSQLBasic SelectWeather Observation Station 5
+select count (city) - count(distinct city) from station;
+=========================================================================================================================
+PracticeSQLBasic SelectWeather Observation Station 1
+select city,state from station;
+=========================================================================================================================
+PracticeSQLBasic SelectWeather Observation Station 5
+select MIN(city) , length(city) from station group by length(city) having length(city) =(select MIN(length(city)) from station ) 
+or length(city) =(select MAX(length(city)) from station ) order by length(city) ASC;
+
+
+SELECT *
+FROM
+    (SELECT CITY, LENGTH(CITY)
+    FROM STATION
+    ORDER BY LENGTH(CITY), CITY)
+WHERE ROWNUM = 1
+UNION
+SELECT *
+FROM
+    (SELECT CITY, LENGTH(CITY)
+    FROM STATION
+    ORDER BY LENGTH(CITY) DESC, CITY)
+WHERE ROWNUM = 1;
+=========================================================================================================================
+PracticeSQLBasic SelectWeather Observation Station 6
+select distinct(city) from station where lower(substr(city,1,1)) in ('a','e','i','o','u');
+=========================================================================================================================
+
+PracticeSQLBasic SelectWeather Observation Station 7
+select distinct(city) from station where lower(substr(city,-1,1)) in ('a','e','i','o','u');
+=========================================================================================================================
+PracticeSQLBasic SelectWeather Observation Station 8
+Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) as both their first and last characters. Your result cannot contain duplicates.
+*/
+select distinct(city) from station where lower(substr(city,1,1)) in('a','e','i','o','u') and lower(substr(city,-1,1)) in('a','e','i','o','u');
+
+=========================================================================================================================
+PracticeSQLBasic SelectWeather Observation Station 10
+Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.
+*/
+
+select distinct(city) from station where lower(substr(city,-1,1)) not in ('a','e','i','o','u');
+=========================================================================================================================
+PracticeSQLBasic SelectEmployee Names
+  Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
+*/
+
+select name from employee order by name asc;
+
+
+=========================================================================================================================
+PracticeSQLBasic SelectEmployee Salaries
+ Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than  per month who have been employees for less than  months. Sort your result by ascending employee_id.
+*/
+
+select name from employee where salary > 2000 and months < 10;
+=========================================================================================================================
+
+
+
+
