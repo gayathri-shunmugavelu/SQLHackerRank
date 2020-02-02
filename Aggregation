@@ -1,0 +1,59 @@
+PracticeSQLAggregationRevising Aggregations - The Count Function
+
+Query a count of the number of cities in CITY having a Population larger than 100000.
+select count(id) from city where population >100000;
+
+SELECT SUM(Population)
+FROM City
+WHERE District = 'California';
+
+/*Query the average population of all cities in CITY where verDistrict is California.*/
+select AVG(population) from city where district ='California';
+
+/*Query the average population for all cities in CITY, rounded down to the nearest integer.*/
+select round(avg(population),0) from city;
+
+/*Query the difference between the maximum and minimum populations in CITY.*/
+
+select max(population)-min(population) from city;
+
+
+SELECT CEIL(AVG(SALARY)-AVG(REPLACE(SALARY,'0',''))) from employees;
+
+select * from (SELECT MONTHS * SALARY AS EARNINGS, COUNT(*) FROM EMPLOYEE GROUP BY MONTHS * SALARY order by earnings desc) where rownum=1;
+
+/*The sum of all values in LAT_N rounded to a scale of 2 decimal places.
+The sum of all values in LONG_W rounded to a scale of 2  decimal places.
+*/
+SELECT ROUND(SUM(Lat_N), 2), ROUND(SUM(Long_W), 2)
+FROM Station;
+
+/*
+Query the sum of Northern Latitudes (LAT_N) from STATION having values greater than 38.7880 and less than 137.2345 . Truncate your answer to 4 decimal places.
+*/
+
+select round(sum(LAT_N),4) from Station where LAT_N between 38.7880 and 137.2345;
+
+/*Query the greatest value of the Northern Latitudes (LAT_N) from STATION that is less than137.2345 . Truncate your answer to 4 decimal places.
+*/
+
+select round(max(LAT_N),4) from Station where LAT_N <= 137.2345;
+
+/*
+
+Query the Western Longitude (LONG_W) for the largest Northern Latitude (LAT_N) in STATION that is less than137.2345 . Round your answer to  4 decimal places.
+
+SELECT ROUND(LONG_W,4) FROM (SELECT LONG_W,LAT_N FROM STATION WHERE LAT_N < 137.2345 ORDER BY 2 DESC)WHERE ROWNUM<=1;
+*/
+
+select round(LONG_W,4) from station where LAT_N = (select max(LAT_N) from station where LAT_N < 137.2345);
+
+/*Query the smallest Northern Latitude (LAT_N) from STATION that is greater than 38.7780. Round your answer to  decimal places.
+*/
+
+select round(min(LAT_N) ,4) from STATION where LAT_N > 38.7780;
+/*
+Query the Western Longitude (LONG_W)where the smallest Northern Latitude (LAT_N) in STATION is greater than 38.7780. Round your answer to  decimal places.
+*/
+
+select round(LONG_W,4) from station where LAT_N = (select min(LAT_N) from station where LAT_N > 38.7780);
