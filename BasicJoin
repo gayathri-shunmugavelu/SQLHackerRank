@@ -1,1 +1,36 @@
 PracticeSQLBasic JoinOllivander's Inventory
+
+
+/*Given the CITY and COUNTRY tables, query the sum of the populations of all cities where the CONTINENT is 'Asia'.
+select sum(city.population) from city join country where city.countrycode=country.code where country.continent = 'Asia';
+*/
+
+SELECT SUM(CITY.POPULATION) FROM CITY JOIN COUNTRY ON CITY.COUNTRYCODE = COUNTRY.CODE WHERE COUNTRY.CONTINENT ='Asia';
+
+/*Given the CITY and COUNTRY tables, query the names of all cities where the CONTINENT is 'Africa'.
+
+Note: CITY.CountryCode and COUNTRY.Code are matching key columns.*/
+
+/*Given the CITY and COUNTRY tables, query the names of all cities where the CONTINENT is 'Africa'.
+
+Note: CITY.CountryCode and COUNTRY.Code are matching key columns.*/
+select city.name from city join country on city.countrycode=country.code where country.continent ='Africa';
+
+/*Given the CITY and COUNTRY tables, query the names of all the continents (COUNTRY.Continent) and their respective average city populations (CITY.Population) rounded down to the nearest integer.
+Note: CITY.CountryCode and COUNTRY.Code are matching key columns.*/
+
+select COUNTRY.CONTINENT,Round(AVG(CITY.Population)-0.5) from CITY JOIN country on CITY.CountryCode = COUNTRY.Code group by country.continent;
+
+select hacker_id, name
+  from (select s.hacker_id, h.name, count(1) cnt
+          from submissions s
+         inner join hackers h
+            on s.hacker_id = h.hacker_id
+         inner join challenges c
+            on s.challenge_id = c.challenge_id
+         inner join difficulty d
+            on c.difficulty_level = d.difficulty_level
+           and s.score = d.score
+         group by s.hacker_id, h.name) a
+ where cnt > 1
+ order by cnt desc, hacker_id;
